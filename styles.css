@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- v68 deployment sanity: this file must be served by GitHub Pages, not app.js -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Savills Industrial Market Intelligence</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%23ffdf00'/%3E%3Ctext x='7' y='39' font-family='Arial' font-size='17' fill='%23d71920'%3Esavills%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body class="locked">
   <section class="login cinematicLogin" id="login">
@@ -121,7 +122,7 @@
   <div class="modalBg" id="modalBg"><div class="modal"><div class="modalTop"><div><h2 id="modalTitle"></h2><p id="modalSub"></p></div><button class="close" id="closeModal">×</button></div><div class="modalBody"><div class="box executiveBox"><h3>Executive outreach summary</h3><div id="execSummary"></div></div><div class="box"><h3>Building profile</h3><div class="profileGrid" id="profileGrid"></div></div><div class="box"><h3>Email brief</h3><textarea id="briefText"></textarea><div class="modalButtons"><button class="btn yellow" id="copyBrief">Copy brief</button><button class="btn" id="selectBrief">Select text</button></div></div><div class="box"><h3>Lease comps</h3><div id="compList"></div></div><div class="box"><h3>Lease events</h3><div id="oppList"></div></div></div></div></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="data/dashboard_data.js"></script>
-  <script src="app.js"></script>
+  <script src="./data/dashboard_data.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
