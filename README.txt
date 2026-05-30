@@ -1,3 +1,3 @@
-Savills Industrial Market Intelligence - v52 Direct Table Render Repair
+Savills Industrial Market Intelligence - v53 Lightweight Functional Rebuild
 
-Upload index.html to GitHub Pages root. Fixes comps and BD lease event tab rendering by bypassing fragile normalization paths and rendering directly from embedded data arrays.
+Upload index.html to GitHub Pages root. This is a clean rebuild from the same v52 data with one event system and lightweight tab rendering.
