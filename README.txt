@@ -1,4 +1,5 @@
-Savills Industrial Market Intelligence - v31 Advanced Landing Polish
+Savills Industrial Market Intelligence - v35 Comps and CoStar Loaded
 
-Upload index.html to the root of the GitHub Pages repository.
-This version keeps the v30 data and QA foundation, then adds a richer executive landing/login design inspired by the approved mockup.
+Upload index.html to the GitHub Pages repository root.
+
+This build includes the 150K+ master building inventory, matched CoStar enrichment, matched lease comps, and matched BD lease-event prospects as building sister records. Unmatched CoStar/comps/BD records are retained in the QA package.
