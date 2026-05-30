@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Savills Industrial Market Intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%23ffdf00'/%3E%3Ctext x='7' y='39' font-family='Arial' font-size='17' fill='%23d71920'%3Esavills%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="locked">
+  <section class="login cinematicLogin" id="login">
+    <div class="landingStage">
+      <div class="landingBrand">
+        <div class="landingLogo">savills</div>
+        <div class="brandLine"></div>
+        <div><div class="brandName">Savills Industrial</div><div class="brandAccent">Market Intelligence</div></div>
+      </div>
+      <div class="landingCopy">
+        <div class="eyebrow">Data. Insight. Advantage.</div>
+        <h1>PHI-PAC-NNJ<br>Industrial Market<br>Intelligence</h1>
+        <p>Building-level inventory. Lease events. Comp intelligence. Market rent benchmarks. All in one connected platform.</p>
+        <div class="marketPills"><span>Eastern Pennsylvania</span><span>Lehigh Valley</span><span>Northern New Jersey</span><span>Philadelphia Corridor</span></div>
+        <div class="landingStats">
+          <div><span>Buildings</span><strong id="loginBuildings">—</strong><em>PHI-PAC-NNJ inventory</em></div>
+          <div><span>Lease events</span><strong id="loginEvents">—</strong><em>Tracked opportunities</em></div>
+          <div><span>Comparables</span><strong id="loginComps">—</strong><em>Matched lease comps</em></div>
+          <div><span>RBA</span><strong id="loginRBA">—</strong><em>Total inventory</em></div>
+        </div>
+        <div class="landingTiles">
+          <div><span>⌂</span>Industrial inventory</div><div><span>▤</span>Lease and sales intelligence</div><div><span>▥</span>Market rent benchmarks</div><div><span>⚓</span>Port and supply chain insights</div>
+        </div>
+      </div>
+      <div class="networkMap">
+        <div class="glowPoint lehigh"><b>Lehigh Valley</b><small>Allentown-Bethlehem</small></div>
+        <div class="glowPoint philly"><b>Philadelphia</b><small>Industrial corridor</small></div>
+        <div class="glowPoint nnj"><b>Northern New Jersey</b><small>Newark-Kearny-Elizabeth</small></div>
+        <div class="glowPoint port"><b>Port Newark / Elizabeth</b><small>Marine terminals</small></div>
+        <div class="glowPoint snj"><b>South Jersey</b><small>Logistics corridor</small></div>
+        <svg class="connectionLines" viewBox="0 0 1000 700" preserveAspectRatio="none">
+          <path d="M410 185 C500 210 575 280 640 365 C580 420 505 430 445 390 C380 346 360 260 410 185Z"/>
+          <path d="M445 390 C535 360 650 360 765 335"/>
+          <path d="M640 365 C705 385 770 435 810 515"/>
+          <path d="M445 390 C520 475 620 535 700 610"/>
+        </svg>
+      </div>
+      <div class="loginPanel">
+        <div class="secureIcon">▣</div>
+        <h2>Welcome back</h2>
+        <p>Sign in to access Savills Industrial Market Intelligence</p>
+        <form id="loginForm">
+          <label>Username or Email</label><input id="loginUser" autocomplete="username" placeholder="jleskow@savills.us"/>
+          <label>Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Password"/>
+          <div class="loginOptions"><label><input type="checkbox" id="remember" checked/> Remember me</label><span>Forgot password?</span></div>
+          <button type="submit">Sign in →</button><div class="loginErr" id="loginErr"></div>
+        </form>
+        <div class="ssoRow"><button type="button">SSO</button><button type="button">SAML SSO</button></div>
+      </div>
+      <div class="landingFooter">System Status <b>●</b> &nbsp; | &nbsp; Privacy Policy &nbsp; | &nbsp; Terms of Use &nbsp; | &nbsp; Contact Us</div>
+    </div>
+  </section>
+
+  <div class="drawerOverlay" id="drawerOverlay"></div>
+  <main class="app">
+    <header class="top">
+      <div class="logo">savills</div>
+      <div class="title"><h1>Savills Industrial Market Intelligence</h1><p>Industrial market intelligence · lease events · comp intelligence · market rent benchmarks</p></div>
+      <button class="filterBtn" id="filterBtn">Filters</button>
+      <div class="badge">PHI-PAC-NNJ inventory loaded</div>
+      <button class="logout" id="logout">Logout</button>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <label>Search tenant / address</label><input id="q" placeholder="Search tenant, address, city, landlord"/>
+      <label>Expiration window</label><select id="win"><option value="">All</option><option>0-12 months</option><option>12-24 months</option><option>24-36 months</option><option>36+ months</option></select>
+      <label>BD priority</label><select id="pri"><option value="">All</option><option>High</option><option>Watchlist</option></select>
+      <label>Rent position</label><select id="rentFilter"><option value="">All</option><option>Below market</option><option>Near market</option><option>Above market</option><option>Current rent unknown</option></select>
+      <label>Region / focus</label><select id="region"><option value="">All regions</option></select>
+      <label>Submarket</label><select id="sub"><option value="">All</option></select>
+      <label>Minimum SF</label><select id="sfFilter"><option value="0">All sizes</option><option value="100000">100K+</option><option value="200000">200K+</option><option value="500000">500K+</option><option value="1000000">1M+</option></select>
+      <div class="legend"><strong>Map legend</strong><br><span class="dot red"></span>0-12 months<br><span class="dot orange"></span>12-24 months<br><span class="dot gold"></span>24-36 months<br><span class="dot blue"></span>36+ months<br><span class="dot gray"></span>Inventory / no event</div>
+    </aside>
+
+    <section class="kpis">
+      <div class="kpi"><div class="label">Lease events</div><div class="value" id="kOpp">—</div></div>
+      <div class="kpi"><div class="label">PHI-PAC-NNJ inventory / RBA</div><div class="value" id="kBldg">—</div><div class="sub" id="kRBA">—</div></div>
+      <div class="kpi"><div class="label">Direct vacancy</div><div class="value" id="kVac">—</div><div class="sub" id="kVacRate">—</div></div>
+      <div class="kpi"><div class="label">Availability</div><div class="value" id="kAvail">—</div><div class="sub" id="kAvailRate">—</div></div>
+    </section>
+
+    <section class="metricRow">
+      <div class="metric yellow"><div class="label">Buildings in view</div><div class="value" id="mBldg">—</div></div>
+      <div class="metric"><div class="label">RBA in view</div><div class="value" id="mRBA">—</div></div>
+      <div class="metric"><div class="label">Research rent</div><div class="value" id="mResearch">—</div></div>
+      <div class="metric"><div class="label">Comp rent</div><div class="value" id="mComp">—</div></div>
+      <div class="metric"><div class="label">Availability</div><div class="value" id="mAvail">—</div><div class="sub" id="mAvailRate">—</div></div>
+      <div class="metric"><div class="label">Vacancy</div><div class="value" id="mVac">—</div><div class="sub" id="mVacRate">—</div></div>
+    </section>
+
+    <section class="mapWrap" id="mapWrap">
+      <div id="map"></div>
+      <button class="mapBtn" id="mapToggle">⌄ Map options</button>
+      <div class="mapOpts" id="mapOpts">
+        <button class="chip active" data-region="">PHI-PAC-NNJ</button><button class="chip" data-region="NNJ">NNJ</button><button class="chip" data-region="Lehigh Valley">Lehigh Valley</button><button class="chip" data-region="Philly / SNJ">Philly / SNJ</button><button class="chip" data-region="PA I-81/78">I-78 / I-81</button><button class="chip active" id="fitBtn">Fit visible</button><button class="chip dark" id="collapseBtn">Collapse map</button>
+      </div>
+    </section>
+
+    <section class="tablePanel">
+      <div class="tabs"><button class="tab active" data-mode="buildings">PHI-PAC-NNJ Industrial Building Inventory</button><button class="tab" data-mode="comps">Lease comps</button><button class="tab" data-mode="active">BD lease events</button><button class="tab" data-mode="market">Market rent benchmarks</button><div class="tabNote">Functional raw data view</div></div>
+      <div class="tableHead"><h2 id="tableTitle"></h2><div class="visible" id="visibleRows"></div></div>
+      <div class="tableScroll"><table id="dataTable"><thead></thead><tbody></tbody></table></div>
+      <div class="mobileCards" id="mobileCards"></div>
+    </section>
+
+    <aside class="right">
+      <div class="card"><span class="verified">● Verified intelligence</span><h2 id="rTitle">Select a building</h2><p id="rSub">Building profile, comps, lease events and market benchmarks.</p><div class="actions"><button class="btn yellow" id="openProfile">Open profile</button><button class="btn" id="emailBrief">Email brief</button></div><div class="infoGrid"><div><span>RBA</span><strong id="rRBA">—</strong></div><div><span>Market rent</span><strong id="rRent">—</strong></div><div><span>Comps</span><strong id="rComps">—</strong></div><div><span>Events</span><strong id="rEvents">—</strong></div></div></div>
+      <div class="card"><h3 class="queueTitle">Lease opportunity queue</h3><p class="queueHelp">Click a tenant to open the full building report.</p><div class="queue" id="queue"></div></div>
+    </aside>
+  </main>
+
+  <div class="modalBg" id="modalBg"><div class="modal"><div class="modalTop"><div><h2 id="modalTitle"></h2><p id="modalSub"></p></div><button class="close" id="closeModal">×</button></div><div class="modalBody"><div class="box executiveBox"><h3>Executive outreach summary</h3><div id="execSummary"></div></div><div class="box"><h3>Building profile</h3><div class="profileGrid" id="profileGrid"></div></div><div class="box"><h3>Email brief</h3><textarea id="briefText"></textarea><div class="modalButtons"><button class="btn yellow" id="copyBrief">Copy brief</button><button class="btn" id="selectBrief">Select text</button></div></div><div class="box"><h3>Lease comps</h3><div id="compList"></div></div><div class="box"><h3>Lease events</h3><div id="oppList"></div></div></div></div></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data/dashboard_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
